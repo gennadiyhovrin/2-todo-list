@@ -4,7 +4,7 @@ import ListItem from "../ListItem/ListItem";
 export default class ListGroup extends Component {
   state = {
     textTask: "",
-    lists: [],
+    list: [],
   };
   handleInputChange = (e) => {
     this.setState({
@@ -16,9 +16,9 @@ export default class ListGroup extends Component {
     e.preventDefault();
     if (this.state.textTask) {
       this.setState({
-        lists: [
-          ...this.state.lists,
-          { key: Date.now(), textTask: this.state.textTask, status: "false" },
+        list: [
+          ...this.state.list,
+          { key: Date.now(), textTask: this.state.textTask, status: false },
         ],
       });
     }
@@ -29,19 +29,29 @@ export default class ListGroup extends Component {
   };
 
   handleListClick = (e) => {
-    let index = this.state.lists.findIndex(
+    let index = this.state.list.findIndex(
       (item) => item.key === +e.target.closest("li").id
     );
-    let result = { ...this.state.lists };
-    result[index].status = !result[index].status ? true : false;
-    this.setState({ ...result });
+
+    this.setState({
+      list: [
+        ...this.state.list.slice(0, index),
+
+        {
+          key: this.state.list[index].key,
+          textTask: this.state.list[index].textTask,
+          status: !this.state.list[index].status,
+        },
+        ...this.state.list.slice(index + 1),
+      ],
+    });
   };
 
   render() {
     return (
       <div>
         <ul className="list-group p-1" onClick={this.handleListClick}>
-          {this.state.lists.map((item) => {
+          {this.state.list.map((item) => {
             return (
               <ListItem key={item.key} status={item.status} id={item.key}>
                 {item.textTask}

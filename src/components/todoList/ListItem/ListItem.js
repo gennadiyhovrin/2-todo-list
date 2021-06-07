@@ -8,8 +8,8 @@ export default class ListItem extends Component {
         className={
           
           this.props.status
-            ? "list-group-item list-group-item-action"
-            : "list-group-item list-group-item-action list-group-item-primary text-decoration-line-through"
+            ? "list-group-item list-group-item-action list-group-item-primary text-decoration-line-through"
+            : "list-group-item list-group-item-action"
         }
       >
         {this.props.children}
