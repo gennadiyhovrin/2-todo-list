@@ -6,7 +6,7 @@ export default class ListItem extends Component {
       <li
         id={this.props.id}
         className={
-          
+           
           this.props.status
             ? "list-group-item list-group-item-action list-group-item-primary text-decoration-line-through"
             : "list-group-item list-group-item-action"
